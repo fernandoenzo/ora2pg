@@ -16,7 +16,8 @@ jobs:
         with:
           account-type: personal
           untagged-only: true
-          image-names: debian
-          cut-off: One second ago UTC
+          image-names: ora2pg
           keep-at-least: 1
+          cut-off: One second ago UTC
           token: ${{ secrets.DELETE_PACKAGES }}
+

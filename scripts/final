@@ -10,6 +10,7 @@ dpkg -i /tmp/*.deb
 
 sed -i 's/ORACLE_HOME/#ORACLE_HOME/' /etc/ora2pg/ora2pg.conf
 sed -i '26iNLS_LANG	SPANISH_SPAIN.UTF8' /etc/ora2pg/ora2pg.conf
+sed -i '/^DATA_LIMIT/c DATA_LIMIT 1000' /etc/ora2pg/ora2pg.conf
 
 mkdir -p /usr/lib/oracle/21/client64/network/admin/
 
