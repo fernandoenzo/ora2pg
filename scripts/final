@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command exits with a non-zero status.
+set -x  # All executed commands are printed to the terminal
+
+# sed -i 's/Components: main/Components: main contrib non-free/' /etc/apt/sources.list.d/debian.sources
+
+aptitude update ; aptitude install -y ora2pg libaio1
+dpkg -i /tmp/*.deb
+
+sed -i 's/ORACLE_HOME/#ORACLE_HOME/' /etc/ora2pg/ora2pg.conf
+sed -i '26iNLS_LANG	SPANISH_SPAIN.UTF8' /etc/ora2pg/ora2pg.conf
+
+mkdir -p /usr/lib/oracle/21/client64/network/admin/
+
+apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.aptitude

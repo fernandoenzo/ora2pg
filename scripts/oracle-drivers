@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command exits with a non-zero status.
+set -x  # All executed commands are printed to the terminal
+
+BASE_URL=https://download.oracle.com/otn_software/linux/instantclient/219000
+BASE_NAME=oracle-instantclient
+VERSION=21.9.0.0.0-1
+ARCH=x86_64
+FORMAT=rpm
+PACKAGES="basic devel jdbc odbc sqlplus"
+
+aptitude update ; aptitude install -y alien build-essential ca-certificates libaio1 libdbi-perl
+
+for PACKAGE in $PACKAGES; do
+ wget $BASE_URL/$BASE_NAME-$PACKAGE-$VERSION.$ARCH.$FORMAT
+done
+
+alien *.rpm
+dpkg -i *.deb
+
+export LD_LIBRARY_PATH=/usr/lib/oracle/21/client64/lib
+export ORACLE_HOME=/usr/lib/oracle/21/client64
+export PERL_MM_USE_DEFAULT=1
+
+perl -MCPAN -e 'get DBD::Oracle'
+cd ~/.cpan/build/DBD-Oracle*
+perl Makefile.PL
+make
+make install
