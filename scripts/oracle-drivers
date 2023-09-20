@@ -3,9 +3,9 @@
 set -e  # Exit immediately if a command exits with a non-zero status.
 set -x  # All executed commands are printed to the terminal
 
-BASE_URL=https://download.oracle.com/otn_software/linux/instantclient/219000
+BASE_URL=https://download.oracle.com/otn_software/linux/instantclient/2111000
 BASE_NAME=oracle-instantclient
-VERSION=21.9.0.0.0-1
+VERSION=21.11.0.0.0-1
 ARCH=x86_64
 FORMAT=rpm
 PACKAGES="basic devel jdbc odbc sqlplus"
